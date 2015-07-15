@@ -8,6 +8,8 @@ import com.parse.ParseCrashReporting;
 
 /**
  * Created by jaredscott on 7/15/15.
+ * Added libs to connect Parse - removed Facebook Authentication
+ * due to causing errors.
  */
 public class ParseDatabase extends Application {
 
