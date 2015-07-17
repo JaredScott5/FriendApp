@@ -15,6 +15,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.apache.commons.io.IOUtils;
 
@@ -32,45 +33,27 @@ import java.io.InputStream;
  */
 public class ParseDatabase extends Application {
 
-    private ParseObject retrievedObject,
-            newUser,
-            photo,
-            music;
     private ParseQuery<ParseObject> query;
 
     @Override
     public void onCreate(){
         super.onCreate();
 
-        // Initialize Crash Reporting.
-        ParseCrashReporting.enable(this);
-
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        // Add your initialization code here
-        Parse.initialize(this, "FE9hqhrX9u82m5rrx2U9G0uRSbsa3RSLMO3N71CQ",
-                               "Xbtv0h3ETBRz5ahqEqu2b0kDH6mFXWkGXama0dOM");
-
-        ParseACL defaultACL = new ParseACL();
-        // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
-        ParseACL.setDefaultACL(defaultACL, true);
     }
 
     //TODO remind everyone to use this with log-out
-    public void logOut(){
-        newUser.unpinInBackground();
+    public void logOut(ParseUser user){
+        user.unpinInBackground();
     }
 
-    //TODO determine if we need to 'put' authData and ACL
+    /*//TODO determine if we need to 'put' authData and ACL
     public void createNewuser(String username, String pw, String email){
-        newUser = new ParseObject("User");
-        newUser.put("username", username);
-        newUser.put("password", pw);
-        newUser.put("email", email);
-        newUser.saveEventually();
-    }
+        user = new ParseObject("User");
+        user.put("username", username);
+        user.put("password", pw);
+        user.put("email", email);
+        user.saveEventually();
+    }*/
 
     //TODO this needs to be tested or another alternative needs to be found
     public void deleteUser(String userID){
@@ -88,20 +71,20 @@ public class ParseDatabase extends Application {
     }
 
     //if you only want to usdate one value, make the rest null
-    public void updateUser(String userID, final String username, final String pw, final String email){
+    public void updateUser(final ParseUser user, String userID, final String username, final String pw, final String email){
         query = ParseQuery.getQuery("User");
         query.getInBackground(userID, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 if (e == null) {
                     if (!username.equals(null))
-                        newUser.put("username", username);
+                        user.put("username", username);
 
                     if (!pw.equals(null))
-                        newUser.put("password", pw);
+                        user.put("password", pw);
 
                     if (!email.equals(null))
-                        newUser.put("email", email);
+                        user.put("email", email);
                 } else {
                     System.out.println("Error: updateUser has failed");
                 }
@@ -109,33 +92,18 @@ public class ParseDatabase extends Application {
         });
     }
 
-    public void retrieveUser(String objectID){
-            query = ParseQuery.getQuery("User");
-            query.getInBackground(objectID, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject parseObject, ParseException e) {
-                    if (e == null) {
-                        //parseObject will be the User
-                        retrievedObject = parseObject;
-                    } else {
-                        //this is bad
-                        System.out.println("Error in public void retrieveUser. User not found");
-                    }
-                }
-            });
-    }
-
     //delete user
     //user must first be logged in
-    public void deleteUser(){
-        newUser.deleteInBackground();
+    public void deleteUser(ParseUser user){
+        user.deleteInBackground();
     }
 
     public void addTrack(String song){
 
     }
 
-    public void addPicture(String imageNumber, FileInputStream image){
+    //TODO go over this one
+    public void addPicture(String imageNumber, FileInputStream image, ParseUser user, ParseUser photo){
     //read the bytes from File inot a byte[] and put it into the json
         InputStream is;
         byte[] imageData;
@@ -144,12 +112,16 @@ public class ParseDatabase extends Application {
         try {
             is = new BufferedInputStream(new FileInputStream(image.toString()));
             imageData = IOUtils.toByteArray(is);
-            file = new ParseFile("image" + imageNumber + ".jpg", imageData);
+            file = new ParseFile("image" + ".jpg", imageData);
             file.saveInBackground();
 
             //now that it has been saved, we need to associate this file with the User object
-            newUser.put("image" + imageNumber, file);
-            newUser.saveEventually();
+            photo.put("picture", file);
+            photo.put("User", user);
+            photo.put("imageNumber", imageNumber);
+            photo.saveEventually();
+           // newUser.put("image" + imageNumber, file);
+            //newUser.saveEventually();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }catch(IOException e){
