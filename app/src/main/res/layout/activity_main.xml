@@ -31,8 +31,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="Log In"
-        android:id="@+id/logIn_B"
+        android:text="Sign up"
+        android:id="@+id/signUp_B"
         android:layout_centerVertical="true"
         android:layout_alignRight="@+id/password_t"
         android:layout_alignEnd="@+id/password_t"
@@ -42,8 +42,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="Sign-up"
-        android:id="@+id/signIn_B"
+        android:text="Log In"
+        android:id="@+id/logIn_B"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
