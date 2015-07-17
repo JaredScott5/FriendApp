@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
@@ -27,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
     private String password;
     private EditText e_email;
     private EditText e_password;
-    private ParseUser user;
+    private ParseUser currentUser;
     protected Button mLoginButton;
     protected Button mSignupButton;
 
@@ -47,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         mLoginButton = (Button)findViewById(R.id.logIn_B);
-        mSignupButton = (Button)findViewById(R.id.signIn_B);
+        mSignupButton = (Button)findViewById(R.id.signUp_B);
         e_email = (EditText)findViewById(R.id.email_t);
         e_password = (EditText)findViewById(R.id.password_t);
 
@@ -62,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
 
         //initialize this after we have initilized everything else
         //otherwise it throws a runtime error
-        user = new ParseUser();
+        currentUser = new ParseUser();
 
         //I can now create users and add them to the database next I will retrive them
         //and cross reference them to the information they are providing
@@ -72,24 +73,40 @@ public class MainActivity extends ActionBarActivity {
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* email = e_email.getText().toString();
-                password = e_password.getText().toString();
-                Toast.makeText(getApplicationContext(), email + password, Toast.LENGTH_SHORT).show();
-                user.setUsername(email);
-                user.setPassword(password);
-
-                user.signUpInBackground(new SignUpCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e == null){
-                            // let them into the app
-                        }else{
-                            // Signup didn't succeed look at error to figure out whats up
-                        }
-                    }
-                });*/
                 Intent intent = new Intent(getApplicationContext(), sign_up.class);
                 startActivity(intent);
+
+            }
+        });
+
+        mLoginButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+              // Check to see if they provided proper credentials to log into the
+              // Account they are claiming to be once they do send them to their profile
+              // view so they can see their information
+
+                email = e_email.getText().toString();
+                password = e_password.getText().toString();
+
+                ParseUser.logInInBackground(email, password, new LogInCallback() {
+                    public void done(ParseUser user, ParseException e) {
+                        if (user != null) {
+                            // If user exist and authenticated, send user to user_profile.class
+                            // start the intent and sign them in
+                            // Finish allows you to kill an activity if it is no longer needed
+                            Intent intent = new Intent(MainActivity.this, user_profile.class);
+                            startActivity(intent);
+                            //finish();
+                        } else {
+                            Toast.makeText(
+                                    getApplicationContext(),
+                                    "No such user exist, please signup",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
 
             }
         });

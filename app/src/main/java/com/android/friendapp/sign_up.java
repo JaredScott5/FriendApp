@@ -1,5 +1,6 @@
 package com.android.friendapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -55,6 +56,10 @@ public class sign_up extends ActionBarActivity {
 
                             if (e == null) {
                                 // let them into the app
+                                // If user exist and authenticated, send user to Welcome.class
+                                Intent intent = new Intent(sign_up.this, user_profile.class);
+                                startActivity(intent);
+                                finish();
                             } else {
                                 // Signup didn't succeed look at error to figure out whats up
                             }
@@ -70,12 +75,6 @@ public class sign_up extends ActionBarActivity {
             }
 
         });
-
-
-
-
-
-
 
 
 
