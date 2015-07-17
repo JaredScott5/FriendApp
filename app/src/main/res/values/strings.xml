@@ -4,6 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="signUpS">Sign Up</string>
+    <string name="uploadSong">Upload Song</string>
+    <string name="playSong">Download Song</string>
+    <string name="testMusic">Test Music Functions</string>
     <string name="emailS">Email</string>
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_user_profile">FriendApp</string>

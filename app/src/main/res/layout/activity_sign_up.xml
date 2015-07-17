@@ -26,7 +26,7 @@
             android:layout_height="60dp"
             android:textColor="@color/white"
             android:inputType="textEmailAddress"
-            android:id="@+id/emailText"
+            android:id="@+id/uploadText"
             android:hint="Email"
             android:backgroundTint="@color/white"
             android:layout_below="@+id/title_v"/>
@@ -37,7 +37,7 @@
             android:textColor="@color/white"
             android:inputType="textPassword"
             android:id="@+id/passText"
-            android:layout_below="@+id/emailText"
+            android:layout_below="@+id/uploadText"
             android:hint="Password"
             android:backgroundTint="@color/white"/>
 

@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-import java.text.ParseException;
-
 
 public class sign_up extends ActionBarActivity {
 
@@ -32,7 +30,7 @@ public class sign_up extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        t_email = (EditText)findViewById(R.id.emailText);
+        t_email = (EditText)findViewById(R.id.uploadText);
         t_password = (EditText)findViewById(R.id.passText);
         verify_pass = (EditText)findViewById(R.id.passVText);
         mSignupButton = (Button)findViewById(R.id.SignUpB);
@@ -47,7 +45,7 @@ public class sign_up extends ActionBarActivity {
                 password = t_password.getText().toString();
                 v_password = verify_pass.getText().toString();
 
-                if(password == v_password) {
+                if(password.equals(v_password)) {
                     user.setUsername(email);
                     user.setPassword(password);
                     user.signUpInBackground(new SignUpCallback() {
