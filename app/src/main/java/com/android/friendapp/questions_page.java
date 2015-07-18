@@ -18,15 +18,15 @@ import static android.widget.Toast.*;
  */
 public class questions_page extends Activity {
     ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_questions);
+        //setContentView(R.layout.activity_questions);
 
         // Get ListView object from xml
-        listView = (ListView) findViewById(R.id.list);
         ParseUser user = ParseUser.getCurrentUser();
-
+        listView = (ListView) findViewById(R.id.list);
         // Defined Array values to show in ListView
         String[] values = new String[] {
                 "Music",
@@ -47,8 +47,7 @@ public class questions_page extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // ListView Clicked item index
                 int itemPosition = position;
@@ -57,9 +56,8 @@ public class questions_page extends Activity {
                 String  itemValue = (String) listView.getItemAtPosition(position);
 
                 // Show Alert
-                makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, LENGTH_LONG)
-                        .show();
+                makeText(getApplicationContext(), "Position :" + itemPosition + "  ListItem : "
+                        + itemValue, LENGTH_LONG).show();
 
                 //store answer in the database
             }

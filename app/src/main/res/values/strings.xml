@@ -10,4 +10,8 @@
     <string name="emailS">Email</string>
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_user_profile">FriendApp</string>
+    <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_friend_info">FriendInfoActivity</string>
+    <string name="title_activity_friend_suggestion">FriendSuggestionActivity</string>
+    <string name="title_activity_update_info">UpdateInfoActivity</string>
 </resources>

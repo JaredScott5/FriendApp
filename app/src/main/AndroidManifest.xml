@@ -29,6 +29,18 @@
             android:name=".user_profile"
             android:label="@string/title_activity_user_profile" >
         </activity>
+        <activity
+            android:name=".friend_info_activity"
+            android:label="@string/title_activity_friend_info" >
+        </activity>
+        <activity
+            android:name=".friend_suggestion_activity"
+            android:label="@string/title_activity_friend_suggestion" >
+        </activity>
+        <activity
+            android:name=".update_info_activity"
+            android:label="@string/title_activity_update_info" >
+        </activity>
     </application>
 
 </manifest>
