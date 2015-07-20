@@ -17,14 +17,13 @@ import android.net.Uri;
 
 import com.parse.ParseUser;
 
-
+//acts as user's homepage
 public class user_profile extends ActionBarActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
     private Button logout;
     private TextView txtuser;
     private ImageView profileImg;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class user_profile extends ActionBarActivity {
         String struser = currentUser.getUsername().toString();
         // Locate TextView in welcome.xml
         txtuser = (TextView) findViewById(R.id.txtuser);
-
 
         // Set the currentUser String into TextView
         txtuser.setText("You are logged in as " + struser);
@@ -58,7 +56,6 @@ public class user_profile extends ActionBarActivity {
             }
         });
 
-
         // Logout Button Click Listener
         logout.setOnClickListener(new View.OnClickListener() {
 
@@ -69,10 +66,8 @@ public class user_profile extends ActionBarActivity {
                 finish();
             }
         });
-
-
-
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -94,12 +89,6 @@ public class user_profile extends ActionBarActivity {
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         }
     }
-
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

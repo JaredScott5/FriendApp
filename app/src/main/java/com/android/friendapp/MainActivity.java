@@ -96,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
                             // If user exist and authenticated, send user to user_profile.class
                             // start the intent and sign them in
                             // Finish allows you to kill an activity if it is no longer needed
-                            Intent intent = new Intent(MainActivity.this, user_profile.class);
+                            Intent intent = new Intent(MainActivity.this, user_profile.class);//(MainActivity.this, questions_page.class);
                             startActivity(intent);
 
                         } else {
