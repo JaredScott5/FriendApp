@@ -32,14 +32,6 @@ public class MainActivity extends ActionBarActivity {
     protected Button mLoginButton;
     protected Button mSignupButton;
 
-    //NOTE - The Parse Database uses ParseUser datatype to interact with the user
-    //data table it's no different than what the ParseObject is like except
-    //it uses a few different functions if we use ParseObject as our
-    //data collector for this we will just create another table
-    //TODO ask Jared which option he would like
-    //TODO ask Jared what how he would like to tackle the email versus username issue
-    //Possible solution add the email to both fields (since we cannot delete either field)
-    //TODO Userid function call
 
 
     @Override
