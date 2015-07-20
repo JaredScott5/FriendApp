@@ -98,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
                             // Finish allows you to kill an activity if it is no longer needed
                             Intent intent = new Intent(MainActivity.this, user_profile.class);
                             startActivity(intent);
-                            //finish();
+
                         } else {
                             Toast.makeText(
                                     getApplicationContext(),

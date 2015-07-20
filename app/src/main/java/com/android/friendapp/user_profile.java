@@ -33,6 +33,8 @@ public class user_profile extends ActionBarActivity {
 
 
         // Retrieve current user from Parse.com
+        // This is how you get the user from the cache
+        // so we don't need to pass the user as a parameter
         ParseUser currentUser = ParseUser.getCurrentUser();
         // Convert currentUser into String
         String struser = currentUser.getUsername().toString();
@@ -63,6 +65,7 @@ public class user_profile extends ActionBarActivity {
             public void onClick(View arg0) {
                 // Logout current user
                 ParseUser.logOut();
+                //kills activity
                 finish();
             }
         });
