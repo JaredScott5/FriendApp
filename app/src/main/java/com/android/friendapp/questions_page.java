@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.parse.ParseUser;
 
-import static android.widget.Toast.*;
+import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.makeText;
 
 /**
  * Created by jaredscott on 7/17/15.
@@ -22,7 +22,7 @@ public class questions_page extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_questions);
+        setContentView(R.layout.activity_question);
 
         // Get ListView object from xml
         ParseUser user = ParseUser.getCurrentUser();

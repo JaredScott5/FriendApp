@@ -47,7 +47,7 @@
     <ImageButton
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/findButton"
+        android:id="@+id/updateButton"
         android:src="@drawable/no_image"
         android:layout_alignBottom="@+id/quizButton"
         android:layout_centerHorizontal="true" />
@@ -55,9 +55,9 @@
     <ImageButton
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/updateButton"
+        android:id="@+id/findButton"
         android:src="@drawable/no_image"
-        android:layout_alignTop="@+id/findButton"
+        android:layout_alignTop="@+id/updateButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -68,8 +68,8 @@
         android:text="User Name"
         android:id="@+id/nameText"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/updateButton"
-        android:layout_alignEnd="@+id/updateButton" />
+        android:layout_alignRight="@+id/findButton"
+        android:layout_alignEnd="@+id/findButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -117,11 +117,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Friend\nFinder"
         android:id="@+id/textFriends"
-        android:layout_below="@+id/updateButton"
-        android:layout_alignLeft="@+id/updateButton"
-        android:layout_alignStart="@+id/updateButton"
-        android:layout_alignRight="@+id/updateButton"
-        android:layout_alignEnd="@+id/updateButton"
+        android:layout_below="@+id/findButton"
+        android:layout_alignLeft="@+id/findButton"
+        android:layout_alignStart="@+id/findButton"
+        android:layout_alignRight="@+id/findButton"
+        android:layout_alignEnd="@+id/findButton"
          />
 
     <TextView

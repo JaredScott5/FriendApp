@@ -1,19 +1,19 @@
 package com.android.friendapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.provider.MediaStore;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 
 import com.parse.ParseUser;
 
@@ -24,6 +24,9 @@ public class user_profile extends ActionBarActivity {
     private Button logout;
     private TextView txtuser;
     private ImageView profileImg;
+    protected ImageButton uFindButton;
+    protected ImageButton uUpdateButton;
+    protected ImageButton uQuizButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class user_profile extends ActionBarActivity {
         String struser = currentUser.getUsername().toString();
         // Locate TextView in welcome.xml
         txtuser = (TextView) findViewById(R.id.txtuser);
+        uFindButton = (ImageButton)findViewById(R.id.findButton);
+        uUpdateButton = (ImageButton)findViewById(R.id.updateButton);
+        uQuizButton = (ImageButton)findViewById(R.id.quizButton);
 
         // Set the currentUser String into TextView
         txtuser.setText("You are logged in as " + struser);
@@ -64,6 +70,33 @@ public class user_profile extends ActionBarActivity {
                 ParseUser.logOut();
                 //kills activity
                 finish();
+            }
+        });
+
+        uFindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), friend_suggestion_activity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        uUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), update_info_activity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        uQuizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), questions_page.class);
+                startActivity(intent);
+
             }
         });
     }
