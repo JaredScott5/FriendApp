@@ -1,24 +1,19 @@
 package com.android.friendapp;
 
-import com.android.friendapp.ParseDatabase;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseACL;
-import com.parse.ParseCrashReporting;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -45,8 +40,6 @@ public class MainActivity extends ActionBarActivity {
         e_password = (EditText)findViewById(R.id.password_t);
 
         // Add your initialization code here
-        Parse.initialize(this, "FE9hqhrX9u82m5rrx2U9G0uRSbsa3RSLMO3N71CQ",
-                "Xbtv0h3ETBRz5ahqEqu2b0kDH6mFXWkGXama0dOM");
 
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
