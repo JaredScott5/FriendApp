@@ -9,6 +9,9 @@ import android.widget.ListView;
 
 import com.parse.ParseUser;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 
@@ -17,7 +20,8 @@ import static android.widget.Toast.makeText;
  * http://www.mkyong.com/android/android-listview-example/
  */
 public class questions_page extends Activity {
-    ListView listView;
+    private ListView listView;
+    private ParseUser user = ParseUser.getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,7 @@ public class questions_page extends Activity {
         setContentView(R.layout.activity_question);
 
         // Get ListView object from xml
-        ParseUser user = ParseUser.getCurrentUser();
+
         listView = (ListView) findViewById(R.id.list);
         // Defined Array values to show in ListView
         String[] values = new String[] {
@@ -60,6 +64,8 @@ public class questions_page extends Activity {
                         + itemValue, LENGTH_LONG).show();
 
                 //store answer in the database
+                user.addAllUnique("Interests", Arrays.asList(itemValue));
+                user.saveEventually();
             }
 
         });
