@@ -1,65 +1,57 @@
+/*referenced http://www.sitepoint.com/handling-displaying-images-android/
+* */
+
 package com.android.friendapp;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 
-public class friend_suggestion_activity extends ActionBarActivity {
+public class friend_suggestion_activity extends ActionBarActivity{
 
-    private static int RESULT_LOAD_IMAGE = 1;
+    private Integer images[] = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3,
+    R.drawable.pic4, R.drawable.pic5};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_suggestion);
-
-        Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadFriends);
-        buttonLoadImage.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
-            }
-        });
+        addImagesToThegallery();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-
-            ImageView imageView = (ImageView) findViewById(R.id.imgView);
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
+    private void addImagesToThegallery() {
+        LinearLayout imageGallery = (LinearLayout) findViewById(R.id.imageGallery);
+        for (Integer image : images) {
+            imageGallery.addView(getImageButton(image));
         }
+    }
 
 
+    private View getImageButton(Integer image) {
+        ImageButton imageButton = new ImageButton(getApplicationContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, 0, 10, 0);
+        imageButton.setLayoutParams(lp);
+        imageButton.setImageResource(image);
+        imageButton.setTag(image);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageButton ib = (ImageButton)v;
+                Intent intent = new Intent(getApplicationContext(), friend_info_activity.class);
+                Integer res = (Integer)ib.getTag();
+                intent.putExtra("imageId", res);
+                startActivity(intent);
+
+            }
+        });
+        return imageButton;
     }
 
     @Override

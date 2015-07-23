@@ -65,16 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User Name"
-        android:id="@+id/nameText"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/findButton"
-        android:layout_alignEnd="@+id/findButton" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Location"
         android:id="@+id/locationText"
         android:layout_below="@+id/txtuser"
