@@ -112,7 +112,7 @@
         android:layout_alignStart="@+id/findButton"
         android:layout_alignRight="@+id/findButton"
         android:layout_alignEnd="@+id/findButton"
-         />
+        android:layout_marginLeft="12dp" />
 
     <TextView
         android:layout_width="wrap_content"
