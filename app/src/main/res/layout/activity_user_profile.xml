@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/profile_img"
         android:layout_toEndOf="@+id/profile_img" />
-    <ImageView
+    <com.parse.ParseImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/profile_img"
