@@ -1,29 +1,24 @@
 package com.android.friendapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.util.LongSparseArray;
-import android.support.v7.app.ActionBarActivity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.provider.MediaStore;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.GetDataCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
@@ -32,9 +27,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.util.List;
 
 
@@ -46,6 +39,9 @@ public class user_profile extends ActionBarActivity {
     private TextView txtuser;
     private ParseImageView profileImg;
     private String picturePath;
+    private ImageButton uQuizButton;
+    private ImageButton uUpdateButton;
+    private ImageButton uFindButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +63,38 @@ public class user_profile extends ActionBarActivity {
         //txtuser.setText("You are logged in as " + struser);
         // get the button for the log out
         logout = (Button) findViewById(R.id.logOutB);
+        uQuizButton = (ImageButton) findViewById(R.id.quizButton);
+        uUpdateButton = (ImageButton) findViewById(R.id.updateButton);
+        uFindButton = (ImageButton) findViewById(R.id.findButton);
         profileImg = (ParseImageView) findViewById(R.id.profile_img);
-        retriveImage();
+        retrieveImage();
 
+        uQuizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), questions_page.class);
+                startActivity(intent);
 
+            }
+        });
+
+        uUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), update_info_activity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        uFindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), friend_suggestion_activity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         //allow the user to select an image from his gallery
@@ -104,7 +128,7 @@ public class user_profile extends ActionBarActivity {
     }
 
 
-    public void retriveImage() {
+    public void retrieveImage() {
         ParseQuery query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
