@@ -5,17 +5,22 @@
     <!-- needed to access the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,24 +28,39 @@
             </intent-filter>
         </activity>
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".sign_up"
             android:label="@string/title_activity_sign_up" >
         </activity>
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".user_profile"
             android:label="@string/title_activity_user_profile" >
         </activity>
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".friend_info_activity"
             android:label="@string/title_activity_friend_info" >
         </activity>
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".friend_suggestion_activity"
             android:label="@string/title_activity_friend_suggestion" >
         </activity>
         <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name=".update_info_activity"
             android:label="@string/title_activity_update_info" >
+        </activity>
+        <activity
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name=".questions_page"
+            android:label="@string/title_activity_question" >
         </activity>
     </application>
 
