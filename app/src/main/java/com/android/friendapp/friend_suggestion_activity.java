@@ -102,6 +102,7 @@ public class friend_suggestion_activity extends ActionBarActivity{
         addImagesToThegallery();
     }
 
+
     private void addImagesToThegallery() {
         LinearLayout imageGallery = (LinearLayout) findViewById(R.id.imageGallery);
         for (Integer image : images) {

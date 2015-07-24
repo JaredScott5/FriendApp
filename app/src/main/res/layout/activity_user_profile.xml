@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/profile_img"
         android:layout_toEndOf="@+id/profile_img" />
-    <ImageView
+    <com.parse.ParseImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/profile_img"
@@ -31,24 +31,24 @@
         android:layout_height="50dp"
         android:text="Log Out"
         android:id="@+id/logOutB"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/quizButton"
-        android:src="@drawable/no_image"
-        android:layout_above="@+id/logOutB"
-        android:layout_alignRight="@+id/logOutB"
-        android:layout_alignEnd="@+id/logOutB"
-        android:layout_marginBottom="41dp" />
+        android:src="@drawable/list2"
+        android:layout_below="@+id/descriptionText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="29dp" />
 
     <ImageButton
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/updateButton"
-        android:src="@drawable/no_image"
+        android:src="@drawable/update"
         android:layout_alignBottom="@+id/quizButton"
         android:layout_centerHorizontal="true" />
 
@@ -56,7 +56,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/findButton"
-        android:src="@drawable/no_image"
+        android:src="@drawable/finder"
         android:layout_alignTop="@+id/updateButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -112,7 +112,7 @@
         android:layout_alignStart="@+id/findButton"
         android:layout_alignRight="@+id/findButton"
         android:layout_alignEnd="@+id/findButton"
-         />
+        android:layout_marginLeft="12dp" />
 
     <TextView
         android:layout_width="wrap_content"

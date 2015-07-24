@@ -1,30 +1,18 @@
 package com.android.friendapp;
 
-import android.app.Application;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.GetDataCallback;
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseCrashReporting;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 import org.apache.commons.io.IOUtils;
 
@@ -79,7 +67,7 @@ public class ParseDatabase extends ActionBarActivity {
             public void onClick(View v) {
                 //songURL = songPath.getText().toString();
                 trackNumber = "song" + songNumber.toString() + ".mp3";
-                retriveSong("Jared", "1");
+                retrieveSong("Jared", "1");
             }
         });
     }
@@ -156,7 +144,7 @@ public class ParseDatabase extends ActionBarActivity {
         }
     }
 
-    public List<ParseObject> retriveSong(String email, String songNumber){
+    public List<ParseObject> retrieveSong(String email, String songNumber){
         query = ParseQuery.getQuery("Music");
         query.whereEqualTo("userEmail", email);
         query.whereEqualTo("songNumber", songNumber);
@@ -201,9 +189,9 @@ public class ParseDatabase extends ActionBarActivity {
         }
     }
 
-    //retrive image from a specified user
+    //retrieve image from a specified user
     //https://www.parse.com/questions/retrieve-image-from-parse
-  /*  public Bitmap retriveImage(final String imageNumber, String userId){
+  /*  public Bitmap retrieveImage(final String imageNumber, String userId){
 
         final Bitmap[] image = new Bitmap[1];
         ParseQuery query = new ParseQuery("ImageTester");

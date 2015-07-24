@@ -2,7 +2,9 @@ package com.android.friendapp;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,7 +17,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
 
 //acts as user's homepage
 public class user_profile extends ActionBarActivity {
@@ -23,10 +37,11 @@ public class user_profile extends ActionBarActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private Button logout;
     private TextView txtuser;
-    private ImageView profileImg;
-    protected ImageButton uFindButton;
-    protected ImageButton uUpdateButton;
-    protected ImageButton uQuizButton;
+    private ParseImageView profileImg;
+    private String picturePath;
+    private ImageButton uQuizButton;
+    private ImageButton uUpdateButton;
+    private ImageButton uFindButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,43 +55,24 @@ public class user_profile extends ActionBarActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         // Convert currentUser into String
         String struser = currentUser.getUsername().toString();
+
         // Locate TextView in welcome.xml
         txtuser = (TextView) findViewById(R.id.txtuser);
-        uFindButton = (ImageButton)findViewById(R.id.findButton);
-        uUpdateButton = (ImageButton)findViewById(R.id.updateButton);
-        uQuizButton = (ImageButton)findViewById(R.id.quizButton);
 
         // Set the currentUser String into TextView
-        txtuser.setText("You are logged in as " + struser);
+        //txtuser.setText("You are logged in as " + struser);
         // get the button for the log out
         logout = (Button) findViewById(R.id.logOutB);
-        profileImg = (ImageView) findViewById(R.id.profile_img);
+        uQuizButton = (ImageButton) findViewById(R.id.quizButton);
+        uUpdateButton = (ImageButton) findViewById(R.id.updateButton);
+        uFindButton = (ImageButton) findViewById(R.id.findButton);
+        profileImg = (ParseImageView) findViewById(R.id.profile_img);
+        retrieveImage();
 
-        profileImg.setOnClickListener(new View.OnClickListener() {
-
+        uQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
-            }
-        });
-
-        // Logout Button Click Listener
-        logout.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View arg0) {
-                // Logout current user
-                ParseUser.logOut();
-                //kills activity
-                finish();
-            }
-        });
-
-        uFindButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), friend_suggestion_activity.class);
+                Intent intent = new Intent(getApplicationContext(), questions_page.class);
                 startActivity(intent);
 
             }
@@ -91,35 +87,127 @@ public class user_profile extends ActionBarActivity {
             }
         });
 
-        uQuizButton.setOnClickListener(new View.OnClickListener() {
+        uFindButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), questions_page.class);
+                Intent intent = new Intent(getApplicationContext(), friend_suggestion_activity.class);
                 startActivity(intent);
 
             }
         });
+
+
+        //allow the user to select an image from his gallery
+        profileImg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
+                saveImage();
+            }
+        });
+
+
+
+
+
+
+        // Logout Button Click Listener
+        logout.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+                // Logout current user
+                ParseUser.logOut();
+                //kills activity
+                finish();
+            }
+        });
+
     }
+
+
+    public void retrieveImage() {
+        ParseQuery query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    // The query was successful.
+                    // Locate the column named "ImageName" and set
+                    // the string
+                    for (ParseObject  ob: objects) {
+                        ParseFile fileObject = (ParseFile) ob.getParseFile("profileImg");
+                        if(fileObject != null) {
+                            profileImg.setParseFile(fileObject);
+                            profileImg.loadInBackground(new GetDataCallback() {
+                                @Override
+                                public void done(byte[] bytes, ParseException e) {
+                                    //nothing to be done
+                                }
+                            });
+                        }
+                    }
+
+                } else {
+                    // Something went wrong. Look at the ParseException to see what's up.
+                }
+            }
+        });
+
+
+
+    }
+
+    public void saveImage() {
+
+        //Store the image inot the database
+        //This will prob have to have it's own function
+        Bitmap bImage = ((BitmapDrawable)profileImg.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+        byte[] byteArray = stream.toByteArray();
+        final ParseFile pImg = new ParseFile("profile.png", byteArray);
+        pImg.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    //success
+                    ParseUser tempUser = ParseUser.getCurrentUser();
+                    tempUser.put("profileImg", pImg);
+                    tempUser.saveInBackground();
+                } else {
+                    //failed
+                }
+            }
+        });// end of the saveinbackground
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String[] filePathColumn = {
+                    MediaStore.Images.Media.DATA
+            };
 
             Cursor cursor = getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
+            picturePath = cursor.getString(columnIndex);
             cursor.close();
 
             // String picturePath contains the path of selected Image
             ImageView imageView = (ImageView) findViewById(R.id.profile_img);
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
         }
     }
 
