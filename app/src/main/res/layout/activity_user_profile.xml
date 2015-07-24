@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="View/Edit\nInterests"
+        android:text="View/Edit\n Interests"
         android:id="@+id/textQuiz"
         android:layout_below="@+id/findButton"
         android:layout_alignLeft="@+id/quizButton"
