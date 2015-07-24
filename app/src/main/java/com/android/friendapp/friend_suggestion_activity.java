@@ -31,9 +31,7 @@ public class friend_suggestion_activity extends ActionBarActivity{
     private List userList, commonList, comparison;
 
     public void findUsersInCommon(){
-
         Log.v("findUsersInCommon", "starting...");
-
         commonList = new ArrayList<>();
 
         final ParseQuery<ParseUser> query = ParseUser.getQuery();
@@ -97,12 +95,11 @@ public class friend_suggestion_activity extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_suggestion);
-        addImagesToThegallery();
-
-
         //added by jared
         findUsersInCommon();
+
+        setContentView(R.layout.activity_friend_suggestion);
+        addImagesToThegallery();
     }
 
     private void addImagesToThegallery() {
