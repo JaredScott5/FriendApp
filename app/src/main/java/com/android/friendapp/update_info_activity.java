@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.parse.ParseUser;
 
 import java.util.Calendar;
 
@@ -17,30 +21,45 @@ import java.util.Calendar;
 public class update_info_activity extends FragmentActivity implements
         DatePickerDialogListener {
 
+    Button saveAndUpdate,
+            uploadPhoto;
+    EditText aboutMe,
+                userName;
+
+    ParseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_info);
+
+        //create the buttons and EditTexts
+        saveAndUpdate = (Button)findViewById(R.id.updateButton);
+        uploadPhoto = (Button)findViewById(R.id.uploadPhotoButton);
+        aboutMe = (EditText) findViewById(R.id.uploadAbout);
+        userName = (EditText)findViewById(R.id.uploadName);
+
+        user = ParseUser.getCurrentUser();
+        saveAndUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!(aboutMe.getText().equals(null)))
+                    user.put("AboutMe", aboutMe.getText());
+
+                if(!(userName.getText().equals(null)))
+                    user.put("username", userName.getText());
+
+                user.saveEventually();
+            }
+        });
     }
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isFromDate", true);
-        newFragment.setArguments(bundle);
-        newFragment.show(getSupportFragmentManager(), "datePicker");*/
         Log.v("Calender", newFragment.toString());
     }
-
-   /* public void showToDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isFromDate", false);
-        newFragment.setArguments(bundle);
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
