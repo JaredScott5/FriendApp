@@ -1,14 +1,21 @@
 package com.android.friendapp;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.Calendar;
 
-public class update_info_activity extends ActionBarActivity {
+
+public class update_info_activity extends FragmentActivity implements
+        DatePickerDialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +26,21 @@ public class update_info_activity extends ActionBarActivity {
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
+        /*
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isFromDate", true);
+        newFragment.setArguments(bundle);
+        newFragment.show(getSupportFragmentManager(), "datePicker");*/
+        Log.v("Calender", newFragment.toString());
     }
+
+   /* public void showToDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isFromDate", false);
+        newFragment.setArguments(bundle);
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
