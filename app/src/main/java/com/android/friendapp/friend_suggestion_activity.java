@@ -69,7 +69,7 @@ public class friend_suggestion_activity extends ActionBarActivity{
 
                         //if the percentage is >= 50%, add it to the common list
                         if(percentage/userSize >= .5)
-                            commonList.add(comparison);
+                            commonList.add(objects.get(i));
                     }//end compairson for loop
 
                     //now make sure that the list of objects in common is not over 5
@@ -102,14 +102,12 @@ public class friend_suggestion_activity extends ActionBarActivity{
         addImagesToThegallery();
     }
 
-
     private void addImagesToThegallery() {
         LinearLayout imageGallery = (LinearLayout) findViewById(R.id.imageGallery);
         for (Integer image : images) {
             imageGallery.addView(getImageButton(image));
         }
     }
-
 
     private View getImageButton(Integer image) {
         ImageButton imageButton = new ImageButton(getApplicationContext());
@@ -126,7 +124,6 @@ public class friend_suggestion_activity extends ActionBarActivity{
                 Integer res = (Integer)ib.getTag();
                 intent.putExtra("imageId", res);
                 startActivity(intent);
-
             }
         });
         return imageButton;
@@ -150,7 +147,6 @@ public class friend_suggestion_activity extends ActionBarActivity{
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

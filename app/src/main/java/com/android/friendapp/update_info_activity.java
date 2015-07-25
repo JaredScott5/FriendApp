@@ -2,7 +2,9 @@ package com.android.friendapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
@@ -21,11 +23,8 @@ import java.util.Calendar;
 public class update_info_activity extends FragmentActivity implements
         DatePickerDialogListener {
 
-    Button saveAndUpdate,
-            uploadPhoto;
-    EditText aboutMe,
-                userName;
-
+    Button saveAndUpdate, uploadPhoto;
+    EditText aboutMe, userName;
     ParseUser user;
 
     @Override
@@ -38,17 +37,23 @@ public class update_info_activity extends FragmentActivity implements
         uploadPhoto = (Button)findViewById(R.id.uploadPhotoButton);
         aboutMe = (EditText) findViewById(R.id.uploadAbout);
         userName = (EditText)findViewById(R.id.uploadName);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         user = ParseUser.getCurrentUser();
         saveAndUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(!(aboutMe.getText().equals(null)))
-                    user.put("AboutMe", aboutMe.getText());
+                Log.v("", "aboutMe == " + aboutMe.getText().toString() + " and username is "
+                + userName.getText().toString());
+                
+                if(!(aboutMe.getText().equals(null))) {
+                    user.put("AboutMe", aboutMe.getText().toString());
+                }
 
-                if(!(userName.getText().equals(null)))
-                    user.put("username", userName.getText());
+                if(!(userName.getText().equals(null))) {
+                    user.put("username", userName.getText().toString());
+                }
 
                 user.saveEventually();
             }
