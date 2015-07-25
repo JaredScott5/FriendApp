@@ -9,15 +9,6 @@
     android:background="@color/orange"
     tools:context="com.android.friendapp.user_profile">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/txtuser"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/profile_img"
-        android:layout_toEndOf="@+id/profile_img" />
     <com.parse.ParseImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -64,22 +55,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Location"
         android:id="@+id/locationText"
         android:layout_below="@+id/txtuser"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Users Nearby: X"
-        android:id="@+id/nearbyText"
-        android:layout_alignBottom="@+id/profile_img"
-        android:layout_alignRight="@+id/locationText"
-        android:layout_alignEnd="@+id/locationText" />
+        android:layout_alignRight="@+id/txtuser"
+        android:layout_alignEnd="@+id/txtuser" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -99,7 +80,8 @@
         android:id="@+id/textUpdate"
         android:layout_below="@+id/findButton"
         android:layout_toRightOf="@+id/profile_img"
-        android:layout_toEndOf="@+id/profile_img" />
+        android:layout_alignStart="@id/updateButton"
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,11 +110,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="30 word count description of the users choice to introduce and describe themselves outside of their interests and quiz answers blah blah blah baadflkadf  asdfjasdfa adfasdjfadfa  dfdfd  adfadf "
+        android:text=""
         android:id="@+id/descriptionText"
         android:layout_below="@+id/aboutText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="User Name"
+        android:id="@+id/txtuser"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/findButton"
+        android:layout_alignEnd="@+id/findButton" />
 
 
 </RelativeLayout>

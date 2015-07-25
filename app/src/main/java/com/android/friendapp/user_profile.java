@@ -26,6 +26,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.GetCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -42,6 +43,8 @@ public class user_profile extends ActionBarActivity {
     private ImageButton uQuizButton;
     private ImageButton uUpdateButton;
     private ImageButton uFindButton;
+    private TextView aboutMe;
+    private TextView location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +59,13 @@ public class user_profile extends ActionBarActivity {
         // Convert currentUser into String
         String struser = currentUser.getUsername().toString();
 
+
+
         // Locate TextView in welcome.xml
         txtuser = (TextView) findViewById(R.id.txtuser);
 
         // Set the currentUser String into TextView
-        //txtuser.setText("You are logged in as " + struser);
+        txtuser.setText(struser);
         // get the button for the log out
         logout = (Button) findViewById(R.id.logOutB);
         uQuizButton = (ImageButton) findViewById(R.id.quizButton);
@@ -68,6 +73,7 @@ public class user_profile extends ActionBarActivity {
         uFindButton = (ImageButton) findViewById(R.id.findButton);
         profileImg = (ParseImageView) findViewById(R.id.profile_img);
         retrieveImage();
+        getUserInfo();
 
         uQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +132,34 @@ public class user_profile extends ActionBarActivity {
         });
 
     }
+
+    // query current user and load about me and location data to activity.
+    public void getUserInfo() {
+
+        ParseQuery query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+
+                    for (ParseObject  ob: objects) {
+
+                        aboutMe = (TextView) findViewById(R.id.aboutText);
+                        aboutMe.setText(ob.getString("AboutMe"));
+                        //aboutMe.setText("This is a test of the emergency Broadcast system, this is only a test");
+                        location = (TextView) findViewById(R.id.locationText);
+                        location.setText(ob.getString("location"));
+                        //location.setText("Jacksonville, FL");
+                    }
+
+                } else {
+                    // Something went wrong. Look at the ParseException to see what's up.
+                }
+            }
+        });
+
+
+    }
+
 
 
     public void retrieveImage() {
