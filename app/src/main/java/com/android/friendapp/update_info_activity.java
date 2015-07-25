@@ -2,7 +2,10 @@ package com.android.friendapp;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -15,8 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 
 
@@ -26,6 +33,7 @@ public class update_info_activity extends FragmentActivity implements
     Button saveAndUpdate, uploadPhoto;
     EditText aboutMe, userName;
     ParseUser user;
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +53,9 @@ public class update_info_activity extends FragmentActivity implements
             public void onClick(View v) {
 
                 Log.v("", "aboutMe == " + aboutMe.getText().toString() + " and username is "
-                + userName.getText().toString());
+                + userName.getText().toString() + "and user is " + user.toString());
                 
-                if(!(aboutMe.getText().equals(null))) {
+                if((aboutMe.getText().equals(null))) {
                     user.put("AboutMe", aboutMe.getText().toString());
                 }
 
@@ -55,9 +63,44 @@ public class update_info_activity extends FragmentActivity implements
                     user.put("username", userName.getText().toString());
                 }
 
-                user.saveEventually();
+                user.saveInBackground();
             }
         });
+
+        uploadPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
+                saveImage();
+            }
+        });
+    }
+
+    public void saveImage() {
+
+        //Store the image inot the database
+        //This will prob have to have it's own function
+       // Bitmap bImage = ((BitmapDrawable)profileImg.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        //bImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+        byte[] byteArray = stream.toByteArray();
+        final ParseFile pImg = new ParseFile("profile.png", byteArray);
+        pImg.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    //success
+                    user = ParseUser.getCurrentUser();
+                    user.put("profileImg", pImg);
+                    user.saveInBackground();
+                } else {
+                    //failed
+                }
+            }
+        });// end of the saveinbackground
     }
 
     public void showDatePickerDialog(View v) {
