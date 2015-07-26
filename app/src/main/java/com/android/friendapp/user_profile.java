@@ -69,8 +69,15 @@ public class user_profile extends ActionBarActivity {
         uUpdateButton = (ImageButton) findViewById(R.id.updateButton);
         uFindButton = (ImageButton) findViewById(R.id.findButton);
         profileImg = (ParseImageView) findViewById(R.id.profile_img);
+        aboutMe = (TextView) findViewById(R.id.aboutText);
+        location = (TextView) findViewById(R.id.locationText);
+
+
+        //get the about me and location infromation from parse database
+        aboutMe.setText(currentUser.getString("AboutMe"));
+        location.setText(currentUser.getString("Location"));
         retrieveImage();
-        getUserInfo();
+        //getUserInfo();
 
         uQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override

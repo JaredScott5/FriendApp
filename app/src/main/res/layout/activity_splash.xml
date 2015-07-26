@@ -29,6 +29,6 @@
         android:textColor="@color/white"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:text="App" />
+        android:text="Finder" />
 
 </RelativeLayout>

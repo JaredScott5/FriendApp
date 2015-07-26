@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@color/orange"
+    android:background="@drawable/puzzle"
     tools:context="com.android.friendapp.user_profile">
 
     <com.parse.ParseImageView
@@ -60,7 +60,8 @@
         android:id="@+id/locationText"
         android:layout_below="@+id/txtuser"
         android:layout_alignRight="@+id/txtuser"
-        android:layout_alignEnd="@+id/txtuser" />
+        android:layout_alignEnd="@+id/txtuser"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,7 +71,8 @@
         android:id="@+id/textQuiz"
         android:layout_below="@+id/findButton"
         android:layout_alignLeft="@+id/quizButton"
-        android:layout_alignStart="@+id/quizButton" />
+        android:layout_alignStart="@+id/quizButton"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +83,8 @@
         android:layout_below="@+id/findButton"
         android:layout_toRightOf="@+id/profile_img"
         android:layout_alignStart="@id/updateButton"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,7 +97,8 @@
         android:layout_alignStart="@+id/findButton"
         android:layout_alignRight="@+id/findButton"
         android:layout_alignEnd="@+id/findButton"
-        android:layout_marginLeft="12dp" />
+        android:layout_marginLeft="12dp"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -104,7 +108,8 @@
         android:id="@+id/aboutText"
         android:layout_below="@+id/profile_img"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,7 +119,8 @@
         android:id="@+id/descriptionText"
         android:layout_below="@+id/aboutText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -124,7 +130,8 @@
         android:id="@+id/txtuser"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/findButton"
-        android:layout_alignEnd="@+id/findButton" />
+        android:layout_alignEnd="@+id/findButton"
+        android:textColor="#FFFFFF"/>
 
 
 </RelativeLayout>
