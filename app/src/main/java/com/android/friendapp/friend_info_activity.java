@@ -1,6 +1,8 @@
 package com.android.friendapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,12 +16,13 @@ import android.widget.TextView;
 
 public class friend_info_activity extends ActionBarActivity {
 
-    private TextView txtuser;
+    private TextView txtuser, aboutme, locate;
     private ImageView profileImg;
-    private Integer imageId;
+    private Bitmap image;
     private ImageButton fb;
     private ImageButton li;
     private ImageButton wa;
+    private String about, linkedin, facebook, whatsapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +41,50 @@ public class friend_info_activity extends ActionBarActivity {
         fb = (ImageButton)findViewById(R.id.faceBook);
         li = (ImageButton)findViewById(R.id.linkedIn);
         wa = (ImageButton)findViewById(R.id.whatsapp);
-        // Set the currentUser String into TextView
-        txtuser.setText("FriendName's profile");
+        locate = (TextView) findViewById(R.id.locationText);
+        aboutme = (TextView) findViewById(R.id.descriptionText);
+        profileImg = (ImageView) findViewById(R.id.profile_img);
+
         // get the button for the log out
         Intent myIntent = getIntent();
-        imageId = myIntent.getIntExtra("imageId", 0);
-        profileImg = (ImageView) findViewById(R.id.profile_img);
-        profileImg.setImageResource(imageId);
+        // Set the currentUser String into TextView
+        txtuser.setText("Profile of " + myIntent.getStringExtra("name"));
+        aboutme.setText(myIntent.getStringExtra("about"));
+        locate.setText(myIntent.getStringExtra("place"));
+        byte[] imageByte = myIntent.getByteArrayExtra("imageId");
+        if (imageByte.length > 1) {
+            image = BitmapFactory.decodeByteArray(
+                    imageByte, 0, imageByte.length);
+            profileImg.setImageBitmap(image);
+        }
+        else profileImg.setImageResource(R.drawable.no_image);
+
+        if (myIntent.getStringExtra("facebook") != null) {
+            if (myIntent.getStringExtra("facebook").equals("No Info")) {
+                facebook = "http://www.facebook.com";
+            } else facebook = myIntent.getStringExtra("facebook");
+        }
+        else facebook = "http://www.facebook.com";
+
+        if (myIntent.getStringExtra("linkedin") != null) {
+            if (myIntent.getStringExtra("linkedin").equals("No Info")) {
+                linkedin = "http://www.linkedin.com";
+            } else linkedin = myIntent.getStringExtra("linkedin");
+        }
+        else linkedin = "http://www.linkedin.com";
+
+        if (myIntent.getStringExtra("whatsapp") != null) {
+            if (myIntent.getStringExtra("whatsapp").equals("No Info")) {
+                whatsapp = "http://www.whatsapp.com";
+            } else whatsapp = myIntent.getStringExtra("whatsapp");
+        }
+        else whatsapp = "http://www.whatsapp.com";
 
         fb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
 
-                myWebLink.setData(Uri.parse("http://www.facebook.com"));
+                myWebLink.setData(Uri.parse(facebook));
                 startActivity(myWebLink);
             }
         });
@@ -59,7 +93,7 @@ public class friend_info_activity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
 
-                myWebLink.setData(Uri.parse("http://www.linkedin.com"));
+                myWebLink.setData(Uri.parse(linkedin));
                 startActivity(myWebLink);
             }
         });
@@ -68,7 +102,7 @@ public class friend_info_activity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
 
-                myWebLink.setData(Uri.parse("http://www.whatsapp.com"));
+                myWebLink.setData(Uri.parse(whatsapp));
                 startActivity(myWebLink);
             }
         });

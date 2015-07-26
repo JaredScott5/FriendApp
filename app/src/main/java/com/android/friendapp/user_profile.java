@@ -26,7 +26,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.GetCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -57,7 +56,7 @@ public class user_profile extends ActionBarActivity {
         // so we don't need to pass the user as a parameter
         ParseUser currentUser = ParseUser.getCurrentUser();
         // Convert currentUser into String
-        String struser = currentUser.getUsername().toString();
+        String struser = currentUser.getUsername();
 
 
 
@@ -181,6 +180,7 @@ public class user_profile extends ActionBarActivity {
                                 }
                             });
                         }
+                        else profileImg.setImageResource(R.drawable.no_image);
                     }
 
                 } else {
@@ -197,25 +197,27 @@ public class user_profile extends ActionBarActivity {
 
         //Store the image inot the database
         //This will prob have to have it's own function
-        Bitmap bImage = ((BitmapDrawable)profileImg.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        if (profileImg.getDrawable() != null) {
+            Bitmap bImage = ((BitmapDrawable) profileImg.getDrawable()).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
-        byte[] byteArray = stream.toByteArray();
-        final ParseFile pImg = new ParseFile("profile.png", byteArray);
-        pImg.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    //success
-                    ParseUser tempUser = ParseUser.getCurrentUser();
-                    tempUser.put("profileImg", pImg);
-                    tempUser.saveInBackground();
-                } else {
-                    //failed
+            byte[] byteArray = stream.toByteArray();
+            final ParseFile pImg = new ParseFile("profile.png", byteArray);
+            pImg.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        //success
+                        ParseUser tempUser = ParseUser.getCurrentUser();
+                        tempUser.put("profileImg", pImg);
+                        tempUser.saveInBackground();
+                    } else {
+                        //failed
+                    }
                 }
-            }
-        });// end of the saveinbackground
+            });// end of the saveinbackground
+        }
     }
 
 

@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="About FriendName:"
+        android:text="About"
         android:id="@+id/aboutText"
         android:layout_below="@+id/profile_img"
         android:layout_alignParentLeft="true"
