@@ -26,7 +26,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.GetCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -57,7 +56,7 @@ public class user_profile extends ActionBarActivity {
         // so we don't need to pass the user as a parameter
         ParseUser currentUser = ParseUser.getCurrentUser();
         // Convert currentUser into String
-        String struser = currentUser.getUsername().toString();
+        String struser = currentUser.getUsername();
 
         // Locate TextView in welcome.xml
         txtuser = (TextView) findViewById(R.id.txtuser);
@@ -70,8 +69,15 @@ public class user_profile extends ActionBarActivity {
         uUpdateButton = (ImageButton) findViewById(R.id.updateButton);
         uFindButton = (ImageButton) findViewById(R.id.findButton);
         profileImg = (ParseImageView) findViewById(R.id.profile_img);
+        aboutMe = (TextView) findViewById(R.id.aboutText);
+        location = (TextView) findViewById(R.id.locationText);
+
+
+        //get the about me and location infromation from parse database
+        aboutMe.setText(currentUser.getString("AboutMe"));
+        location.setText(currentUser.getString("Location"));
         retrieveImage();
-        getUserInfo();
+        //getUserInfo();
 
         uQuizButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +168,7 @@ public class user_profile extends ActionBarActivity {
                                 }
                             });
                         }
+                        else profileImg.setImageResource(R.drawable.no_image);
                     }
                 } else {
                     // Something went wrong. Look at the ParseException to see what's up.
@@ -174,25 +181,27 @@ public class user_profile extends ActionBarActivity {
 
         //Store the image inot the database
         //This will prob have to have it's own function
-        Bitmap bImage = ((BitmapDrawable)profileImg.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        if (profileImg.getDrawable() != null) {
+            Bitmap bImage = ((BitmapDrawable) profileImg.getDrawable()).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
-        byte[] byteArray = stream.toByteArray();
-        final ParseFile pImg = new ParseFile("profile.png", byteArray);
-        pImg.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    //success
-                    ParseUser tempUser = ParseUser.getCurrentUser();
-                    tempUser.put("profileImg", pImg);
-                    tempUser.saveInBackground();
-                } else {
-                    //failed
+            byte[] byteArray = stream.toByteArray();
+            final ParseFile pImg = new ParseFile("profile.png", byteArray);
+            pImg.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        //success
+                        ParseUser tempUser = ParseUser.getCurrentUser();
+                        tempUser.put("profileImg", pImg);
+                        tempUser.saveInBackground();
+                    } else {
+                        //failed
+                    }
                 }
-            }
-        });// end of the saveinbackground
+            });// end of the saveinbackground
+        }
     }
 
     @Override

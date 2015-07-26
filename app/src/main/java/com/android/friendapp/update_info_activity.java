@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -31,7 +33,8 @@ public class update_info_activity extends FragmentActivity implements
         DatePickerDialogListener {
 
     Button saveAndUpdate, uploadPhoto;
-    EditText aboutMe, userName;
+    ImageButton uProfileButton2;
+    EditText aboutMe, userName, location;
     ParseUser user;
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -41,10 +44,12 @@ public class update_info_activity extends FragmentActivity implements
         setContentView(R.layout.activity_update_info);
 
         //create the buttons and EditTexts
-        saveAndUpdate = (Button)findViewById(R.id.updateButton);
-        uploadPhoto = (Button)findViewById(R.id.uploadPhotoButton);
+        saveAndUpdate = (Button) findViewById(R.id.updateButton);
+        uploadPhoto = (Button) findViewById(R.id.uploadPhotoButton);
+        uProfileButton2 = (ImageButton) findViewById(R.id.profileButton);
         aboutMe = (EditText) findViewById(R.id.uploadAbout);
         userName = (EditText)findViewById(R.id.uploadName);
+        location = (EditText)findViewById(R.id.uploadLocation);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         user = ParseUser.getCurrentUser();
@@ -55,7 +60,7 @@ public class update_info_activity extends FragmentActivity implements
                 Log.v("", "aboutMe == " + aboutMe.getText().toString() + " and username is "
                 + userName.getText().toString() + "and user is " + user.toString());
                 
-                if((aboutMe.getText().equals(null))) {
+                if(!(aboutMe.getText().equals(null))) {
                     user.put("AboutMe", aboutMe.getText().toString());
                 }
 
@@ -63,7 +68,14 @@ public class update_info_activity extends FragmentActivity implements
                     user.put("username", userName.getText().toString());
                 }
 
+                if(!(userName.getText().equals(null))) {
+                    user.put("Location", location.getText().toString());
+                }
+
                 user.saveInBackground();
+                Toast.makeText(getApplicationContext(),
+                        "Your Profile Changes Have Been Saved.",
+                        Toast.LENGTH_LONG).show();
             }
         });
 
@@ -74,6 +86,15 @@ public class update_info_activity extends FragmentActivity implements
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMAGE);
                 saveImage();
+            }
+        });
+
+        // Switch back to profile page if user clicks button
+        uProfileButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), user_profile.class);
+                startActivity(intent);
             }
         });
     }
