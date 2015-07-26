@@ -58,8 +58,6 @@ public class user_profile extends ActionBarActivity {
         // Convert currentUser into String
         String struser = currentUser.getUsername();
 
-
-
         // Locate TextView in welcome.xml
         txtuser = (TextView) findViewById(R.id.txtuser);
 
@@ -79,7 +77,6 @@ public class user_profile extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), questions_page.class);
                 startActivity(intent);
-
             }
         });
 
@@ -88,7 +85,6 @@ public class user_profile extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), update_info_activity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -97,14 +93,11 @@ public class user_profile extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), friend_suggestion_activity.class);
                 startActivity(intent);
-
             }
         });
 
-
         //allow the user to select an image from his gallery
         profileImg.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
@@ -114,14 +107,8 @@ public class user_profile extends ActionBarActivity {
             }
         });
 
-
-
-
-
-
         // Logout Button Click Listener
         logout.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View arg0) {
                 // Logout current user
                 ParseUser.logOut();
@@ -129,7 +116,6 @@ public class user_profile extends ActionBarActivity {
                 finish();
             }
         });
-
     }
 
     // query current user and load about me and location data to activity.
@@ -141,7 +127,6 @@ public class user_profile extends ActionBarActivity {
                 if (e == null) {
 
                     for (ParseObject  ob: objects) {
-
                         aboutMe = (TextView) findViewById(R.id.aboutText);
                         aboutMe.setText(ob.getString("AboutMe"));
                         //aboutMe.setText("This is a test of the emergency Broadcast system, this is only a test");
@@ -155,11 +140,7 @@ public class user_profile extends ActionBarActivity {
                 }
             }
         });
-
-
     }
-
-
 
     public void retrieveImage() {
         ParseQuery query = ParseUser.getQuery();
@@ -182,15 +163,11 @@ public class user_profile extends ActionBarActivity {
                         }
                         else profileImg.setImageResource(R.drawable.no_image);
                     }
-
                 } else {
                     // Something went wrong. Look at the ParseException to see what's up.
                 }
             }
         });
-
-
-
     }
 
     public void saveImage() {
@@ -220,11 +197,9 @@ public class user_profile extends ActionBarActivity {
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             Uri selectedImage = data.getData();
@@ -243,7 +218,6 @@ public class user_profile extends ActionBarActivity {
             // String picturePath contains the path of selected Image
             ImageView imageView = (ImageView) findViewById(R.id.profile_img);
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
         }
     }
 
@@ -260,12 +234,10 @@ public class user_profile extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

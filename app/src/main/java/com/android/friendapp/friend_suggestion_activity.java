@@ -29,8 +29,6 @@ import java.util.Random;
 
 public class friend_suggestion_activity extends ActionBarActivity{
 
-    private Integer images[] = {R.drawable.pic1, R.drawable.pic2, R.drawable.pic3,
-    R.drawable.pic4, R.drawable.pic5};
     private ParseUser user = ParseUser.getCurrentUser();
     private List userList, commonList, comparison;
     private List <ParseUser> similarUsers;
@@ -85,7 +83,7 @@ public class friend_suggestion_activity extends ActionBarActivity{
                         if(percentage/userSize >= .5)
                             commonList.add(comparison);
                             similarUsers.add(objects.get(i));
-                    }//end compairson for loop
+}//end compairson for loop
 
                     //now make sure that the list of objects in common is not over 5
                     if(similarUsers.size() > 5){
@@ -166,7 +164,6 @@ public class friend_suggestion_activity extends ActionBarActivity{
         //addImagesToThegallery();
     }
 
-
     private void addImagesToThegallery() {
         LinearLayout imageGallery = (LinearLayout) findViewById(R.id.imageGallery);
         Integer k = 0;
@@ -184,7 +181,7 @@ public class friend_suggestion_activity extends ActionBarActivity{
 
     }
 
-    private View getImageButton(Integer j) {
+    private View getImageButton(Integer j){
         ImageButton imageButton = new ImageButton(getApplicationContext());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(50, 50, 50, 50);
@@ -208,7 +205,6 @@ public class friend_suggestion_activity extends ActionBarActivity{
                 intent.putExtra("name", thisOne.getUsername());
                 intent.putExtra("place", checkForNull("location", tag));
                 startActivity(intent);
-
             }
         });
         return imageButton;
@@ -246,7 +242,6 @@ public class friend_suggestion_activity extends ActionBarActivity{
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
