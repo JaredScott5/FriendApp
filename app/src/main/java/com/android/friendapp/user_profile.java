@@ -27,6 +27,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
@@ -55,6 +56,10 @@ public class user_profile extends ActionBarActivity {
         // This is how you get the user from the cache
         // so we don't need to pass the user as a parameter
         ParseUser currentUser = ParseUser.getCurrentUser();
+
+
+
+
         // Convert currentUser into String
         String struser = currentUser.getUsername();
 
@@ -76,7 +81,7 @@ public class user_profile extends ActionBarActivity {
         //get the about me and location infromation from parse database
         aboutMe.setText(currentUser.getString("AboutMe"));
         location.setText(currentUser.getString("Location"));
-        retrieveImage();
+        retrieveImage(struser);
         //getUserInfo();
 
         uQuizButton.setOnClickListener(new View.OnClickListener() {
@@ -119,13 +124,15 @@ public class user_profile extends ActionBarActivity {
             public void onClick(View arg0) {
                 // Logout current user
                 ParseUser.logOut();
-                //kills activity
-                finish();
+                //take back to login page
+                //
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    // query current user and load about me and location data to activity.
+    // query current user and load about me and location data to activity. added by Jamie
     public void getUserInfo() {
 
         ParseQuery query = ParseUser.getQuery();
@@ -136,10 +143,10 @@ public class user_profile extends ActionBarActivity {
                     for (ParseObject  ob: objects) {
                         aboutMe = (TextView) findViewById(R.id.aboutText);
                         aboutMe.setText(ob.getString("AboutMe"));
-                        //aboutMe.setText("This is a test of the emergency Broadcast system, this is only a test");
+
                         location = (TextView) findViewById(R.id.locationText);
                         location.setText(ob.getString("location"));
-                        //location.setText("Jacksonville, FL");
+
                     }
 
                 } else {
@@ -149,8 +156,10 @@ public class user_profile extends ActionBarActivity {
         });
     }
 
-    public void retrieveImage() {
+    //load user's profile image from parse - added by alex, edited by Jamie
+    public void retrieveImage(String struser) {
         ParseQuery query = ParseUser.getQuery();
+        query.whereContains("username", struser);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
