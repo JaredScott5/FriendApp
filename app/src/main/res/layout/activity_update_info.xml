@@ -22,18 +22,18 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:textColor="@color/white"
         android:inputType="textPersonName"
         android:id="@+id/uploadName"
-        android:hint="Name"
+        android:hint="User Name"
         android:backgroundTint="@color/white"
         android:layout_below="@+id/title_vi"
         android:textColorHint="#FFFFFF" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:textColor="@color/white"
         android:inputType="textPersonName"
         android:id="@+id/uploadLocation"
@@ -42,15 +42,48 @@
         android:layout_below="@+id/uploadName"
         android:textColorHint="#FFFFFF" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:id="@+id/uploadFacebook"
+        android:hint="Facebook Link"
+        android:backgroundTint="@color/white"
+        android:layout_below="@+id/uploadLocation"
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:id="@+id/uploadLinkedIn"
+        android:hint="Linkedin Link"
+        android:backgroundTint="@color/white"
+        android:layout_below="@+id/uploadFacebook"
+        android:textColorHint="#FFFFFF" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:id="@+id/uploadWhatsapp"
+        android:hint="Whatsapp Link"
+        android:backgroundTint="@color/white"
+        android:layout_below="@+id/uploadLinkedIn"
+        android:textColorHint="#FFFFFF" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:textColor="@color/white"
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/uploadAbout"
-        android:layout_below="@+id/uploadLocation"
+        android:layout_below="@+id/uploadWhatsapp"
         android:layout_centerHorizontal="true"
         android:hint="About Me"
         android:backgroundTint="@color/white"

@@ -34,7 +34,7 @@ public class update_info_activity extends FragmentActivity implements
 
     Button saveAndUpdate, uploadPhoto;
     ImageButton uProfileButton2;
-    EditText aboutMe, userName, location;
+    EditText aboutMe, userName, location, facebook, linkedin, whatsapp;
     ParseUser user;
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -50,6 +50,9 @@ public class update_info_activity extends FragmentActivity implements
         aboutMe = (EditText) findViewById(R.id.uploadAbout);
         userName = (EditText)findViewById(R.id.uploadName);
         location = (EditText)findViewById(R.id.uploadLocation);
+        facebook = (EditText)findViewById(R.id.uploadFacebook);
+        linkedin = (EditText)findViewById(R.id.uploadLinkedIn);
+        whatsapp = (EditText)findViewById(R.id.uploadWhatsapp);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         user = ParseUser.getCurrentUser();
@@ -60,16 +63,26 @@ public class update_info_activity extends FragmentActivity implements
                 Log.v("", "aboutMe == " + aboutMe.getText().toString() + " and username is "
                 + userName.getText().toString() + "and user is " + user.toString());
                 
-                if(!(aboutMe.getText().equals(null))) {
+                if(aboutMe.getText().toString() != null) {
                     user.put("AboutMe", aboutMe.getText().toString());
                 }
 
-                if(!(userName.getText().equals(null))) {
+                if(userName.getText().toString() != null) {
                     user.put("username", userName.getText().toString());
                 }
 
-                if(!(userName.getText().equals(null))) {
+                if(location.getText().toString() != null) {
                     user.put("Location", location.getText().toString());
+                }
+
+                if(facebook.getText().toString() != null) {
+                    user.put("Facebook", facebook.getText().toString());
+                }
+                if(linkedin.getText().toString() != null) {
+                    user.put("LinkedIn", linkedin.getText().toString());
+                }
+                if(whatsapp.getText().toString() != null) {
+                    user.put("whatsapp", whatsapp.getText().toString());
                 }
 
                 user.saveInBackground();
