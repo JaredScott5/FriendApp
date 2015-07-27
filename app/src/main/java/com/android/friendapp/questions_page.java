@@ -3,33 +3,24 @@ package com.android.friendapp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 import android.content.Intent;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.ParseQuery;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import com.parse.ParseUser;
+
 import java.util.List;
 
-import static android.widget.Toast.LENGTH_LONG;
-import static android.widget.Toast.makeText;
 
 /**
- * Created by jaredscott on 7/17/15.
- * http://www.mkyong.com/android/android-listview-example/
+ * Created by Jamie on 7/24/15.
+ *
  */
 public class questions_page extends Activity {
-    private ListView listView;
+
     private ParseUser user = ParseUser.getCurrentUser();
     private ImageButton uSaveButton;
     private ImageButton uProfileButton;
@@ -67,39 +58,41 @@ public class questions_page extends Activity {
         //load user's interests and toggle switches to match
         //added by Jamie
 
-       List interestList = user.getList("Interests");
+       if (user.getList("Interests")!=null) {
 
-                   if (interestList.contains("Music")) {
-                       uMusicSwitch.toggle();
-                   }
-                    if (interestList.contains("Making Friends")) {
-                        uFriendSwitch.toggle();
-                    }
-                    if (interestList.contains("Museums")) {
-                        uMuseumSwitch.toggle();
-                    }
-                    if (interestList.contains("Movies")) {
-                        uMoviesSwitch.toggle();
-                    }
-                    if (interestList.contains("Travel")) {
-                        uTravelSwitch.toggle();
-                    }
-                    if (interestList.contains("Exercise")) {
-                        uExerciseSwitch.toggle();
-                    }
-                    if (interestList.contains("Board Games")) {
-                        uGamesSwitch.toggle();
-                    }
-                    if (interestList.contains("Sports")) {
-                        uSportsSwitch.toggle();
-                    }
-                    if (interestList.contains("Politics")) {
-                        uPoliticsSwitch.toggle();
-                    }
-                    if (interestList.contains("Horoscope")) {
-                        uHoroscopeSwitch.toggle();
-                    }
+           List interestList = user.getList("Interests");
 
+           if (interestList.contains("Music")) {
+               uMusicSwitch.toggle();
+           }
+           if (interestList.contains("Making Friends")) {
+               uFriendSwitch.toggle();
+           }
+           if (interestList.contains("Museums")) {
+               uMuseumSwitch.toggle();
+           }
+           if (interestList.contains("Movies")) {
+               uMoviesSwitch.toggle();
+           }
+           if (interestList.contains("Travel")) {
+               uTravelSwitch.toggle();
+           }
+           if (interestList.contains("Exercise")) {
+               uExerciseSwitch.toggle();
+           }
+           if (interestList.contains("Board Games")) {
+               uGamesSwitch.toggle();
+           }
+           if (interestList.contains("Sports")) {
+               uSportsSwitch.toggle();
+           }
+           if (interestList.contains("Politics")) {
+               uPoliticsSwitch.toggle();
+           }
+           if (interestList.contains("Horoscope")) {
+               uHoroscopeSwitch.toggle();
+           }
+       }
 
         //when save button is clicked, remove old interests, and save new ones to database
         //depending on answers - added by Jamie
