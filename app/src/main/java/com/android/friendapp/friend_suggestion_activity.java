@@ -174,7 +174,7 @@ public class friend_suggestion_activity extends ActionBarActivity{
             View thisOne = getImageButton(k);
             imageGallery.addView(thisOne);
             ImageButton c = (ImageButton)thisOne;
-            c.setVisibility(View.INVISIBLE);
+            c.setVisibility(View.VISIBLE);
             theViews.add(c);
             ++k;
         }
